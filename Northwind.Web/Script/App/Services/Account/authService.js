@@ -37,15 +37,18 @@ angular.module('sbAdminApp').factory('authService', ['$http', '$q', 'ngAuthSetti
         var deferred = $q.defer();
 
         $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-
             if (loginData.useRefreshTokens) {
-                sessionStorage.setItem('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
+                sessionStorage.setItem('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
             }
             else {
-                sessionStorage.setItem('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false });
+                var authorizationData = { token: response.access_token, userName: response.userName, refreshToken: "", useRefreshTokens: false };
+                sessionStorage.setItem('authorizationData', JSON.stringify(authorizationData));
             }
             _authentication.isAuth = true;
-            _authentication.userName = loginData.userName;
+            _authentication.userName = response.userName;
+            _authentication.firstName = response.firstName;
+            _authentication.lastName = response.lastName;
+            _authentication.company = response.company;
             _authentication.useRefreshTokens = loginData.useRefreshTokens;
 
             deferred.resolve(response);
@@ -66,7 +69,9 @@ angular.module('sbAdminApp').factory('authService', ['$http', '$q', 'ngAuthSetti
         _authentication.isAuth = false;
         _authentication.userName = "";
         _authentication.useRefreshTokens = false;
-
+        _authentication.firstName = "";
+        _authentication.lastName = "";
+        _authentication.company = "";
     };
 
     var _fillAuthData = function () {

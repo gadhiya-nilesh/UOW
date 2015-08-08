@@ -10,15 +10,16 @@ angular.module('sbAdminApp').controller('loginController', ['$scope', '$location
     $scope.message = "";
 
     $scope.login = function () {
-        debugger;
         authService.login($scope.loginData).then(function (response) {
-
             $location.path('/dashboard/home');
-
         },
          function (err) {
              $scope.message = err.error_description;
          });
+    };
+
+    $scope.signup = function () {
+        $location.path('/signup');
     };
 
     $scope.authExternalProvider = function (provider) {

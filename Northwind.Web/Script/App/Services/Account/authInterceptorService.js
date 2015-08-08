@@ -6,8 +6,8 @@ angular.module('sbAdminApp').factory('authInterceptorService', ['$q', '$injector
     var _request = function (config) {
 
         config.headers = config.headers || {};
-       
-        var authData = localStorageService.get('authorizationData');
+
+        var authData = JSON.parse(sessionStorage.getItem('authorizationData'));
         if (authData) {
             config.headers.Authorization = 'Bearer ' + authData.token;
         }
@@ -18,7 +18,7 @@ angular.module('sbAdminApp').factory('authInterceptorService', ['$q', '$injector
     var _responseError = function (rejection) {
         if (rejection.status === 401) {
             var authService = $injector.get('authService');
-            var authData = localStorageService.get('authorizationData');
+            var authData = sessionStorage.getItem('authorizationData');
 
             if (authData) {
                 if (authData.useRefreshTokens) {

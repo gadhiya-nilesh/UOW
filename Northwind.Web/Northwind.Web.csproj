@@ -302,6 +302,7 @@
     <Content Include="index.html" />
     <Content Include="Script\App\app.js" />
     <Content Include="Script\App\controllers\Account\loginController.js" />
+    <Content Include="Script\App\controllers\Account\signupController.js" />
     <Content Include="Script\App\controllers\chartContoller.js" />
     <Content Include="Script\App\controllers\form.js" />
     <Content Include="Script\App\controllers\main.js" />
@@ -563,6 +564,7 @@
     <Content Include="Views\form.html" />
     <Content Include="Views\pages\blank.html" />
     <Content Include="Views\pages\login.html" />
+    <Content Include="Views\pages\signup.html" />
     <Content Include="Views\table.html" />
     <Content Include="Views\ui-elements\buttons.html" />
     <Content Include="Views\ui-elements\grid.html" />
@@ -864,7 +866,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>12106</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50000/</IISUrl>
+          <IISUrl>http://localhost:50001/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

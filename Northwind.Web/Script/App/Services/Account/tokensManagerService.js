@@ -2,7 +2,7 @@
 angular.module('sbAdminApp').factory('tokensManagerService', ['$http', 'ngAuthSettings', function ($http, ngAuthSettings) {
 
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
-    
+
     var tokenManagerServiceFactory = {};
 
     var _getRefreshTokens = function () {
