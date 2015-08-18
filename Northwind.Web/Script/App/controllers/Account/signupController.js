@@ -1,12 +1,13 @@
 ﻿'use strict';
-angular.module('sbAdminApp').controller('signupController', ['$scope', '$location', 'authService', 'ngAuthSettings', function ($scope, $location, authService, ngAuthSettings) {
+angular.module('sbAdminApp').controller('signupController', ['$scope', '$location', 'authService', 'ngAuthSettings', '$timeout', function ($scope, $location, authService, ngAuthSettings, $timeout) {
 
     $scope.signupData = {
         Email: "",
         UserName: "",
         PhoneNumber: "",
         Password: "",
-        UserProfileInfoDTO : {
+        Role : "SuperAdmin",
+        UserProfileInfo: {
             FirstName: "",
             LastName: "",
             Company: ""
@@ -16,13 +17,11 @@ angular.module('sbAdminApp').controller('signupController', ['$scope', '$locatio
     $scope.message = "";
 
     $scope.signUp = function () {
-        debugger;
         $scope.signupData.UserName = $scope.signupData.Email;
         authService.saveRegistration($scope.signupData).then(function (response) {
             $scope.savedSuccessfully = true;
             $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
             startTimer();
-
         },
          function (response) {
              var errors = [];

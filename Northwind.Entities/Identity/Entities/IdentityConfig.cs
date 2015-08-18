@@ -38,10 +38,22 @@ namespace Northwind.Entities.Identity.Entities
                 RequireLowercase = true,
                 RequireUppercase = true,
             };
+            //var dataProtectionProvider = options.DataProtectionProvider;
+            //if (dataProtectionProvider != null)
+            //{
+            //    manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(dataProtectionProvider.Create("ASP.NET Identity"));
+            //}
+
+            manager.EmailService = new Northwind.Entities.EmailService.EmailService();
+
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(dataProtectionProvider.Create("ASP.NET Identity"))
+                {
+                    //Code for email confirmation and reset password life time
+                    TokenLifespan = TimeSpan.FromHours(6)
+                };
             }
             return manager;
         }

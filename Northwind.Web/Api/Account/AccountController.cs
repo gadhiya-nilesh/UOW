@@ -387,6 +387,20 @@ namespace Northwind.Web.Api.Account
 
             if (result.Succeeded)
             {
+                string code = await this.UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+                var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
+                try
+                {
+                    await this.UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+
+                Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
+
                 result = await UserManager.AddToRoleAsync(user.Id, model.Role);
             }
             if (!result.Succeeded)
@@ -450,6 +464,30 @@ namespace Northwind.Web.Api.Account
             catch (Exception ex)
             {
                 return StatusCode(HttpStatusCode.NotModified);
+            }
+        }
+
+
+
+        [HttpGet]
+        [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
+        public async Task<IHttpActionResult> ConfirmEmail(int userId, string code = "")
+        {
+            if (userId == 0 || string.IsNullOrWhiteSpace(code))
+            {
+                ModelState.AddModelError("ConfirmEmail", "User Id and Code are required");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await this.UserManager.ConfirmEmailAsync(userId, code);
+
+            if (result.Succeeded)
+            {
+                return Content(HttpStatusCode.OK, "Email has been varified successfully..!!");
+            }
+            else
+            {
+                return GetErrorResult(result);
             }
         }
 

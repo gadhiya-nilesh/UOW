@@ -14,13 +14,13 @@
                                        popover-trigger="mouseenter" ng-required="true" autofocus>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="First Name" name="firstName" type="text" data-ng-model="signupData.UserProfileInfoDTO.FirstName" autofocus>
+                                <input class="form-control" placeholder="First Name" name="firstName" type="text" data-ng-model="signupData.UserProfileInfo.FirstName" autofocus>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Last Name" name="lastName" type="text" data-ng-model="signupData.UserProfileInfoDTO.LastName" autofocus>
+                                <input class="form-control" placeholder="Last Name" name="lastName" type="text" data-ng-model="signupData.UserProfileInfo.LastName" autofocus>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Company" name="companyName" type="text" data-ng-model="signupData.UserProfileInfoDTO.Company" autofocus>
+                                <input class="form-control" placeholder="Company" name="companyName" type="text" data-ng-model="signupData.UserProfileInfo.Company" autofocus>
                             </div>
                             <div class="form-group" ng-class="{ 'has-error' : (signupForm.password.$invalid && !signupForm.password.$pristine) }">
                                 <input class="form-control" placeholder="Password" name="password" type="password" value="" data-ng-model="signupData.Password"
